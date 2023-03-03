@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>My Form</h1>
+    <form method="post">
+        <label for="name">Element:</label>
+        <input type="text" name="name" id="name">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
