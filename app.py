@@ -31,7 +31,7 @@ def create_todo():
 @app.route('/clear', methods=['POST'])
 def execute():
     db.todos.delete_many({})
-    return "Todo-List has been cleared"
+    return render_template('form.html')
 
 
 if __name__ == '__main__':
