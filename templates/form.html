@@ -12,7 +12,7 @@
         <br>
         <input type="submit" value="Submit">
     </form>
-{% if names %}
+    {% if names %}
       <h2>What's in my ToDo List:</h2>
       <ul>
         {% for name in names %}
@@ -20,5 +20,8 @@
         {% endfor %}
       </ul>
     {% endif %}
+    <footer>
+        <p> Bonjour</p>
+    </footer>
 </body>
 </html>
