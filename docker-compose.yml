@@ -6,7 +6,7 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - ./data:/data
+      - ./data:/app/data
     networks:
       - todoapp
     depends_on:
@@ -15,10 +15,13 @@ services:
   db:
     image: mongo
     volumes:
-      - ./data:/data/db
+      - volume-db:/data/db
     networks:
       - todoapp
 
 networks:
   todoapp:
     driver: bridge
+
+volumes:
+  volume-db:
