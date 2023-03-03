@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>My Form</h1>
+    <h1>ToDo List</h1>
     <form method="post">
-        <label for="name">Element:</label>
+        <label for="name">Element :</label>
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Submit">
     </form>
+{% if names %}
+      <h2>What's in my ToDo List:</h2>
+      <ul>
+        {% for name in names %}
+          <li>{{ name }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 </body>
 </html>
