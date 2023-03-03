@@ -10,9 +10,9 @@ services:
     networks:
       - todoapp
     depends_on:
-      - db
+      - mongodb
 
-  db:
+  mongodb:
     image: mongo
     volumes:
       - volume-db:/data/db

@@ -2,12 +2,12 @@
 <html>
 <head>
     <title>To-Do List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>ToDo List</h1>
     <form method="post">
-        <label for="name">Element :</label>
+        <label> Element :</label>
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Submit">
