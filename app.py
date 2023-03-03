@@ -12,13 +12,26 @@ db = client.todoapp
 @app.route('/', methods=['GET', 'POST'])
 def form():
     if request.method == 'POST':
-        name = request.form['name']
-        names = session.get('names', [])
-        names.append(name)
-        session['names'] = names
-        return render_template('form.html', names=names)
+        todos = []
+        for todo in db.todos.find():
+            todos.append({
+                'title': todo['title']
+            })
+
+        title = request.json['name']
+        todo = {
+            'title': title,
+        }
+        result = db.todos.insert_one(todo)
+        todos.append(todo)
+        return render_template('form.html', names=todos)
     else:
-        return render_template('form.html')
+        todos = []
+        for todo in db.todos.find():
+            todos.append({
+                'title': todo['title']
+            })
+        return render_template('form.html', names=todos)
 
 
 if __name__ == "__main__":
