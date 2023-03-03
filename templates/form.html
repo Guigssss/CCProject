@@ -2,26 +2,42 @@
 <html>
 <head>
     <title>To-Do List</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#myButton').click(function() {
+          $.ajax({
+            type: 'POST',
+            url: '/clear',
+            success: function(data) {
+              alert(data);
+            }
+          });
+        });
+      });
+    </script>
 </head>
 <body>
     <h1>ToDo List</h1>
     <form method="post">
-        <label> Element :</label>
+        <label for="name">Element :</label>
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Submit">
     </form>
+    <button id="myButton">Clear ToDo-List</button>
     {% if names %}
       <h2>What's in my ToDo List:</h2>
       <ul>
         {% for name in names %}
-          <li>{{ name }}</li>
+          <li>{{ name}}</li>
         {% endfor %}
       </ul>
     {% endif %}
     <footer>
-        <p> Bonjour</p>
+        <p></p>
     </footer>
 </body>
 </html>
