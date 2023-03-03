@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, session, jsonify
 from pymongo import MongoClient
 
 app = Flask(__name__)
-app.secret_key = 'my_secret_key'
 
 client = MongoClient('db', 27017)
 db = client.todoapp
