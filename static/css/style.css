@@ -1,6 +1,9 @@
 body {
   background-color: #f8f8f8;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 h1 {
@@ -12,4 +15,14 @@ form {
   padding: 20px;
   border: 1px solid #ccc;
   background-color: #fff;
+}
+
+footer{
+  text-align: center;
+  padding: 3px;
+  margin-top: auto;
+}
+
+button{
+  max-width: 150px;
 }
