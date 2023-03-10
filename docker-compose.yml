@@ -1,27 +1,38 @@
+#This line specifies the version of Docker Compose that we use in the file
 version: "3"
-
+#This section is where we will define the different services or containers that constitute the app
 services:
+  #this line define our first service 'app'
   app:
+    #This lines tell to Docker to build the Dockerfile in the current directory (".")
     build: .
+    #This line map the port 5001 of the host (left) to the port 5001 of the app container (right). The traffic is forwarded to the container.
     ports:
       - "5001:5001"
+    #This is our Bind Mount; We map the 'data' directory on the host machine to the '/app/data' directory in the app container
     volumes:
       - ./data:/app/data
+    #This line adds the app container to the 'todoapp' network (defined later in the file)
     networks:
       - todoapp
+    #This line specifies that the app service depends on the mongodb service, so the mongodb service will start before the app service
     depends_on:
       - mongodb
-
+  #This line define our second service 'mongodb'
   mongodb:
+    #This line tell that the mongodb service will use the official "mongo" image from Docker Hub
     image: mongo
+    #This line maps the "volume-db" volume to the "/data/db" directory in the mongodb container.
+    #This allows the mongodb container to store its data on the "volume-db" volume, which makes it persistent
     volumes:
       - volume-db:/data/db
+    #This line adds the app container to the 'todoapp' network (defined later in the file)
     networks:
       - todoapp
-
+#This section defines the "todoapp" network as a bridge network. This allows containers on this network to communicate each others
 networks:
   todoapp:
     driver: bridge
-
+#This section defines a volume named "volume-db" that is used by containers to make data persistent
 volumes:
   volume-db:
