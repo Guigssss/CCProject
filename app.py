@@ -1,9 +1,11 @@
 from flask import Flask, request, render_template, redirect, url_for
 from pymongo import MongoClient
+from bson import ObjectId
 
 app = Flask(__name__)
 
-client = MongoClient("mongodb://mongodb:27017/")
+#client = MongoClient("mongodb://mongodb:27017/")
+client = MongoClient("localhost:27017")
 db = client.todoapp
 
 
@@ -13,22 +15,29 @@ def get_todos():
         footer = file.read()
     todos = []
     for todo in db.todos.find():
-        todos.append(todo['title'])
+        todos.append(todo)
     return render_template('form.html', names=todos, footer=footer)
 
 
 @app.route('/', methods=['POST'])
 def create_todo():
-    todos = []
-    for todo in db.todos.find():
-        todos.append(todo['title'])
     title = request.form['name']
     todo = {
         'title': title,
+        'checked': False  # Add a new field to the document to store the checked value.
     }
     result = db.todos.insert_one(todo)
-    todos.append(title)
     return redirect(url_for('get_todos'))
+
+@app.route('/update', methods=['POST'])
+def update_todo():
+    todo = request.form['todo']
+    title = eval(todo, {'ObjectId': ObjectId})
+    checked = request.form['checked'] == 'true'
+    db.todos.update_one({'title': title["title"]}, {'$set': {'checked': checked}})
+    return 'success'
+
+
 
 
 @app.route('/clear', methods=['POST'])
