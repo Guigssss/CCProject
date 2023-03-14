@@ -4,8 +4,8 @@ from bson import ObjectId
 
 app = Flask(__name__)
 
-#client = MongoClient("mongodb://mongodb:27017/")
-client = MongoClient("localhost:27017")
+client = MongoClient("mongodb://mongodb:27017/")
+
 db = client.todoapp
 
 
@@ -35,6 +35,15 @@ def update_todo():
     title = eval(todo, {'ObjectId': ObjectId})
     checked = request.form['checked'] == 'true'
     db.todos.update_one({'title': title["title"]}, {'$set': {'checked': checked}})
+    return 'success'
+
+@app.route('/delete', methods=['POST'])
+def delete_todo():
+    todo = request.form['todo']
+    print(todo)
+    title = eval(todo, {'ObjectId': ObjectId})
+    checked = request.form['checked'] == 'true'
+    db.todos.delete_one({'title': title["title"]})
     return 'success'
 
 
